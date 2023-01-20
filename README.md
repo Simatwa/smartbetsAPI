@@ -63,7 +63,7 @@ $ sudo bash install.sh
 
  Running `$ smartbetsAPI <api-password>`  will fire up the [Flask](/pallets/Flask) server with the following default configurations.
 
-<table align="center"> 
+<table> 
 <thead>
 <tr><th>Command        </th><th>Default  </th></tr>
 </thead>
@@ -151,9 +151,9 @@ print(predictions)
 
 - The outputs initials are explained in the table below
 
-<table align="center">
+<table>
 <thead>
-<tr><th>Parameter  </th><th>Functions                                                  </th></tr>
+<tr><th>Parameter  </th><th>Function                                                 </th></tr>
 </thead>
 <tbody>
 <tr><td>g          </td><td>Goal average of the two teams                              </td></tr>
@@ -174,7 +174,7 @@ print(predictions)
 
 The `predictor` _class_ accepts multiple parameters that includes :
 
-<table align="center">
+<table>
 <thead>
 <tr><th>Parameter       </th><th>Function                                              </th><th>Default  </th></tr>
 </thead>
