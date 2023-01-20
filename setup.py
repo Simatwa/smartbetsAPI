@@ -40,13 +40,7 @@ setup(
         "Topic :: Soccer Predictions  :: Quality Assurance",
         "Topic :: Betting API",
     ],
-    package_data={
-        "smartbets_API": [
-            "examples/bet_at_api_level.py",
-            "examples/predict_using_dict.py",
-            "examples/predict_using_list.py",
-        ]
-    },
+    include_package_data=True,
     keywords=[
         "Betting",
         "Football",

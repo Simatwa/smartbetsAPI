@@ -1,5 +1,5 @@
 <h1 align="center">smartbetsAPI</h1>
-<p align="center">
+<!-- <p align="center"> -->
  <a href="https://github.com/Simatwa/smartbetsAPI"><img src="https://img.shields.io/static/v1?logo=github&color=blueviolet&label=Test&message=Passing"/></a>
 <a href="LICENSE"><img src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPL-v3&label=License"/></a>
 <a href="https://pypi.org/project/smartbetsAPI/1.0.1/"><img src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.0.1&color=green"/></a>
@@ -9,7 +9,7 @@
 <a href="#" alt="coverage"><img src="https://img.shields.io/static/v1?logo=Coverage&label=Coverage&message=100%&color=yellowgreen"/></a>
 <a href="#" alt="progress"><img src="https://img.shields.io/static/v1?logo=Progress&label=Progress&message=95%&color=green"/></a><br>
  <!-- <img src="assets/soccer_player.jpg" width="60%" height="60%"/><br><br> -->
-</p>
+<!-- </p> -->
  
  > "Punter's choice" 
 
@@ -95,6 +95,7 @@ Here is an example of a [simple program](examples/bet_at_api_level.py) that make
 
 > **Note** 
   - Content-Type of the response (predictions) is `application/json`
+  - Reinstall with `sudo` privileges if `smartbetsAPI` command can't be found.
 
 
 * For more information you can run `smartbetsAPI -h` 
