@@ -1,15 +1,6 @@
 <h1 align="center">smartbetsAPI</h1>
-<!-- <p align="center"> -->
- <a href="https://github.com/Simatwa/smartbetsAPI"><img src="https://img.shields.io/static/v1?logo=github&color=blueviolet&label=Test&message=Passing"/></a>
-<a href="LICENSE"><img src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPL-v3&label=License"/></a>
-<a href="https://pypi.org/project/smartbetsAPI/1.0.1/"><img src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.0.1&color=green"/></a>
-<a href="https://github.com/psf/black"><img src="https://img.shields.io/static/v1?logo=Black&label=Code-style&message=Black"/></a>
-<a href="#"><img src="https://img.shields.io/static/v1?logo=accuracy&label=Accuracy&message=55%&color=critical"/></a>
-<a href="#"><img src="https://img.shields.io/static/v1?logo=Docs&label=Docs&message=Passing&color=green"/></a>
-<a href="#" alt="coverage"><img src="https://img.shields.io/static/v1?logo=Coverage&label=Coverage&message=100%&color=yellowgreen"/></a>
-<a href="#" alt="progress"><img src="https://img.shields.io/static/v1?logo=Progress&label=Progress&message=95%&color=green"/></a><br>
- <!-- <img src="assets/soccer_player.jpg" width="60%" height="60%"/><br><br> -->
-<!-- </p> -->
+<p align="center"> 
+ <a href="https://github.com/Simatwa/smartbetsAPI"><img src="https://img.shields.io/static/v1?logo=github&color=blueviolet&label=Test&message=Passing"/></a><a href="LICENSE"><img src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPL-v3&label=License"/></a><a href="https://pypi.org/project/smartbetsAPI/1.0.2/"><img src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.0.2&color=green"/></a><a href="https://github.com/psf/black"><img src="https://img.shields.io/static/v1?logo=Black&label=Code-style&message=Black"/></a><a href="#"><img src="https://img.shields.io/static/v1?logo=accuracy&label=Accuracy&message=55%&color=critical"/></a><a href="#"><img src="https://img.shields.io/static/v1?logo=Docs&label=Docs&message=Passing&color=green"/></a><a href="#" alt="coverage"><img src="https://img.shields.io/static/v1?logo=Coverage&label=Coverage&message=100%&color=yellowgreen"/></a><a href="#" alt="progress"><img src="https://img.shields.io/static/v1?logo=Progress&label=Progress&message=95%&color=green"/></a></p><br>
  
  > "Punter's choice" 
 
