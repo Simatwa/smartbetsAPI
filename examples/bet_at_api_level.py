@@ -67,7 +67,7 @@ if __name__ == "__main__":
         password="mypass9876",
     )
     for match in matches:
-        predictions = run.get_predictions(home=match[0], away=match[1],net=False)
+        predictions = run.get_predictions(home=match[0], away=match[1], net=False)
         if predictions[0]:
             print(f'{"-".join(match)} : {predictions[1]}')
         else:
