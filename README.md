@@ -36,7 +36,7 @@
 
  - For those who like enjoying the **latest** releases from [Github](https://github.com) like [me](https://github.com/Simatwa), rather than  waiting for the next package:
 
- ```bash
+ ```sh
  $ pip install git+https://github.com/Simatwa/smartbetsAPI.git
 
  ```
@@ -63,7 +63,7 @@ $ sudo bash install.sh
 
  Running `$ smartbetsAPI <api-password>`  will fire up the [Flask](/pallets/Flask) server with the following default configurations.
 
-<table> 
+<table align="center"> 
 <thead>
 <tr><th>Command        </th><th>Default  </th></tr>
 </thead>
@@ -163,7 +163,7 @@ print(predictions)
 <tr><td>ov35       </td><td>Probability of having more than 4 goals                    </td></tr>
 <tr><td>choice     </td><td>Probability of the specified &#x27;result&#x27; to occcur            </td></tr>
 <tr><td>result     </td><td>The most suitable outcome from [1,1x,x,2x,2]                  </td></tr>
-<tr><td>pick       </td><td>The most suitable outcome from [1,1x,x,2x,2,gg,ov15,ov25,0v35]</td></tr>
+<tr><td>pick       </td><td>The most suitable outcome from [1,1x,x,2x,2,gg,ov15,ov25,ov35]</td></tr>
 </tbody>
 </table>
 
