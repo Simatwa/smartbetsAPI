@@ -69,7 +69,7 @@ $ sudo bash install.sh
 </thead>
 <tbody>
 <tr><td>Port           </td><td>8000     </td></tr>
-<tr><td>Username       </td><td>developer</td></tr>
+<tr><td>Username       </td><td>API</td></tr>
 <tr><td>Filename       </td><td>None     </td></tr>
 <tr><td>level (Logging)</td><td>20       </td></tr>
 <tr><td>host           </td><td>False    </td></tr>
@@ -88,8 +88,14 @@ $ sudo bash install.sh
 
 ``` 
 
+Here is an example of a [simple program](examples/bet_at_api_level.py) that makes prediction using the `api`.
+
+![api running](assets/api_running.gif)
+
+
 > **Note** 
-  - Content-Type of the response is `application/json`
+  - Content-Type of the response (predictions) is `application/json`
+
 
 * For more information you can run `smartbetsAPI -h` 
 
@@ -161,7 +167,7 @@ print(predictions)
 <tr><td>ov15       </td><td>Probability of having more than 2 goals                    </td></tr>
 <tr><td>ov25       </td><td>Probability of having more than 3 goals                    </td></tr>
 <tr><td>ov35       </td><td>Probability of having more than 4 goals                    </td></tr>
-<tr><td>choice     </td><td>Probability of the specified &#x27;result&#x27; to occcur            </td></tr>
+<tr><td>choice     </td><td>Probability of the specified &#x27;result&#x27; to occur            </td></tr>
 <tr><td>result     </td><td>The most suitable outcome from [1,1x,x,2x,2]                  </td></tr>
 <tr><td>pick       </td><td>The most suitable outcome from [1,1x,x,2x,2,gg,ov15,ov25,ov35]</td></tr>
 </tbody>
