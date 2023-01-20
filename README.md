@@ -155,14 +155,14 @@ print(predictions)
 
 ```
 
-- The outputs initials are explained in the table below
+- The output initials are explained in the table below.
 
 <table>
 <thead>
 <tr><th>Parameter  </th><th>Function                                                 </th></tr>
 </thead>
 <tbody>
-<tr><td>g          </td><td>Goal average of the two teams                              </td></tr>
+<tr><td>g          </td><td>Goal-average of the two teams                              </td></tr>
 <tr><td>gg         </td><td>Probability of both teams to score                         </td></tr>
 <tr><td>ov15       </td><td>Probability of having more than 2 goals                    </td></tr>
 <tr><td>ov25       </td><td>Probability of having more than 3 goals                    </td></tr>
