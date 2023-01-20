@@ -2,7 +2,7 @@
 <p align="center">
  <a href="https://github.com/Simatwa/smartbetsAPI"><img src="https://img.shields.io/static/v1?logo=github&color=blueviolet&label=Test&message=Passing"/></a>
 <a href="LICENSE"><img src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPL-v3&label=License"/></a>
-<a href="https://pypi.org/project/smartbetsAPI/1.0.0/"><img src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.0.0&color=green"/></a>
+<a href="https://pypi.org/project/smartbetsAPI/1.0.1/"><img src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.0.1&color=green"/></a>
 <a href="https://github.com/psf/black"><img src="https://img.shields.io/static/v1?logo=Black&label=Code-style&message=Black"/></a>
 <a href="#"><img src="https://img.shields.io/static/v1?logo=accuracy&label=Accuracy&message=55%&color=critical"/></a>
 <a href="#"><img src="https://img.shields.io/static/v1?logo=Docs&label=Docs&message=Passing&color=green"/></a>
