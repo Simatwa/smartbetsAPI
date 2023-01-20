@@ -40,7 +40,6 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Games/Entertainment",
     ],
-    include_package_data=True,
     keywords=[
         "Football",
         "Predictions",
