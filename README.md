@@ -29,7 +29,7 @@
 *Python 3.7+* is required for this script to be fruitful to you. 
 - Installing through pip is always the most preferred way:
 
- ```
+ ```sh
  $ pip  install smartbetsAPI
  
  ```
@@ -63,8 +63,7 @@ $ sudo bash install.sh
 
  Running `$ smartbetsAPI <api-password>`  will fire up the [Flask](/pallets/Flask) server with the following default configurations.
 
-<table align="center">
-<caption align="center" >Default api configurations</caption> 
+<table align="center"> 
 <thead>
 <tr><th>Command        </th><th>Default  </th></tr>
 </thead>
@@ -153,7 +152,6 @@ print(predictions)
 - The outputs initials are explained in the table below
 
 <table align="center">
-<caption align="center">Summary of the response initials<caption>
 <thead>
 <tr><th>Parameter  </th><th>Functions                                                  </th></tr>
 </thead>
@@ -177,7 +175,6 @@ print(predictions)
 The `predictor` _class_ accepts multiple parameters that includes :
 
 <table align="center">
-<caption align="center">Parameters for predictor (class)</caption>
 <thead>
 <tr><th>Parameter       </th><th>Function                                              </th><th>Default  </th></tr>
 </thead>
