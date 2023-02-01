@@ -2,7 +2,7 @@ from setuptools import setup
 from smartbets_API import __version__, __author__
 
 
-def get_file(nm: str) -> str:
+def get_file(nm: str) -> list:
     with open(nm) as file:
         return file.readlines()
 

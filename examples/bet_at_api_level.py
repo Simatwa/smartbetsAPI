@@ -1,4 +1,4 @@
-from requests import get, post, Session
+from requests import Session
 from json import loads
 from sys import exit
 from os import path
