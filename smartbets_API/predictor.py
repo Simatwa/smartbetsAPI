@@ -19,6 +19,23 @@ class predictor:
         gui=False,
         api=False,
     ):
+        """Initializes the class.
+
+     :param include_position: (optional) Include team's league ranking in making predictions.
+     :type include_position: bool
+     :param log: (optional) Log at api default log's path.	
+     :type log: bool
+     :param level: (optional) Logging level.	
+     :type level: int
+     :param filename: (optional) Log to the filename specified.
+     :type filename: str
+     :param color: (optional) Colorize the logs.
+     :type color: bool
+     :param gui: (optional) Run with some Graphical interface notifications (Termux).
+     :type gui: bool
+     :param api: (optional) Run with api-server's configurations.
+     :type api: bool
+     """
         if not api:
             from .configuration_handler import set_config
 
@@ -79,7 +96,7 @@ class predictor:
             for val in data:
                 self.B.append(val)
 
-    # Exlusively unpacks team-data
+    # Exclusively unpacks team-data
     def decide4(self, data, lst):
         pos = ["position", "win", "draw", "loss", "scored", "conceived"]
         for x in range(6):
@@ -216,6 +233,14 @@ class predictor:
 
     # Handles list data-type
     def predictorL(self, teams: list, net=True) -> dict:
+        """Predicts with teams packed in list (data-type).
+
+        :param teams: List or tuple containing the two teams in order of  [Home-team,Away-team]
+        :type teams: list|tuple
+        :param net: (optional) Fetch team's data from online or use locally cached.
+        :type net: bool
+        :rtype: dict
+        """
         self.clearHolders()
         for x in range(2):
             mined = self.harvest().harvester(teams[x], net)
@@ -228,6 +253,14 @@ class predictor:
 
     # Handles dict data-type
     def predictorD(self, teams: dict, net=True) -> dict:
+        """Predicts with teams parsed in dict (data-type).
+
+        :param teams: Dictionary containing the two teams with keys {1:Home-team,2:Away-team}.
+        :type teams: dict
+        :param net: (optional) Fetch team's data from online or use locally cached.
+        :type net: bool
+        :rtype: dict
+        """
         self.clearHolders()
         for key, value in teams.items():
             mined = self.harvest().harvester(value, net)
