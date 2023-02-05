@@ -21,21 +21,21 @@ class predictor:
     ):
         """Initializes the class.
 
-     :param include_position: (optional) Include team's league ranking in making predictions.
-     :type include_position: bool
-     :param log: (optional) Log at api default log's path.	
-     :type log: bool
-     :param level: (optional) Logging level.	
-     :type level: int
-     :param filename: (optional) Log to the filename specified.
-     :type filename: str
-     :param color: (optional) Colorize the logs.
-     :type color: bool
-     :param gui: (optional) Run with some Graphical interface notifications (Termux).
-     :type gui: bool
-     :param api: (optional) Run with api-server's configurations.
-     :type api: bool
-     """
+        :param include_position: (optional) Include team's league ranking in making predictions.
+        :type include_position: bool
+        :param log: (optional) Log at api default log's path.
+        :type log: bool
+        :param level: (optional) Logging level.
+        :type level: int
+        :param filename: (optional) Log to the filename specified.
+        :type filename: str
+        :param color: (optional) Colorize the logs.
+        :type color: bool
+        :param gui: (optional) Run with some Graphical interface notifications (Termux).
+        :type gui: bool
+        :param api: (optional) Run with api-server's configurations.
+        :type api: bool
+        """
         if not api:
             from .configuration_handler import set_config
 
