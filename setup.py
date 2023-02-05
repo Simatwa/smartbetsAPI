@@ -12,7 +12,7 @@ setup(
     packages=["smartbets_API"],
     version=__version__,
     install_requires=get_file("requirements.txt"),
-    url="https://github.com/Simatwa/smartbetsAPI.git",
+    url="https://github.com/Simatwa/smartbetsAPI",
     license="GPL-3.0",
     author=__author__,
     author_email="smartwacaleb@gmail.com",
