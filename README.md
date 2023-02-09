@@ -100,7 +100,7 @@ Module `predictor`  provides two ways of interacting with it at the programming 
 > For [example](examples/predict_using_list.py):
 
 ```py
-#!usr/bin/env python3
+#!/usr/bin/env python3
 from smartbets_API.predictor import predictor
 
 teams = [
@@ -125,7 +125,7 @@ print(predictions)
 > For [example](examples/predict_using_dict.py):
 
 ```py
-#!usr/bin/env python3
+#!/usr/bin/env python3
 from smartbets_API.predictor import predictor
 
 teams = {

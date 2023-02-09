@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 from smartbets_API.predictor import predictor
 
 teams = [
