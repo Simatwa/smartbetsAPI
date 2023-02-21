@@ -7,7 +7,7 @@
  Worldwide soccer-matches predictor with a  dedicated standalone [Flask](https://github.com/pallets/Flask) server as an endpoint and a package for intergrating the scripts in your own [Python](https://python.org) code.
 
  ## Features
- - Standalone api
+ - REST-API
  - Script intergration (package)
  - Non-AI 
 
