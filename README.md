@@ -25,7 +25,7 @@
  
  ```
 
- - For those who like enjoying the **latest** releases from [Github](https://github.com) like [me](https://github.com/Simatwa), rather than  waiting for the next package:
+ - For those who like enjoying the **latest** releases from [Github](https://github.com) like [me](https://github.com/Simatwa), rather than  waiting for the next release:
 
  ```sh
  $ pip install git+https://github.com/Simatwa/smartbetsAPI.git
