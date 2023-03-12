@@ -106,24 +106,19 @@ def verifyNet(arg):
 
 
 # Handles request error
-def error(msg: str, comment=""):
+def error(msg: str, comment=None):
     logging.debug(f"INVALID {request.remote_addr} : {msg}")
-    return make_response(
-        Response(
-            f'<script>alert("{msg}")</script>{comment}',
-            mimetype="javascript/application",
-        )
-    )
+    return jsonify({"message": msg, "comment": comment})
 
 
 def bad_request() -> tuple:
-    info = """
-	Kindly pass team names {home:str,away:str,net:bool}
+    info = "Kindly pass team names {home:str,away:str,net:bool}"
+    help = """
 	//<input name="home" type="text"/> 
 	//<input name="away" type="text"/>
 	//<input name="net" type="text"/>
 	"""
-    return error(info), 400
+    return error(info, help), 400
 
 
 # Route to the server
