@@ -177,7 +177,7 @@ def login():
         return resp
     else:
         logging.debug(
-            f"LOGIN FAILURE : {request.remote_addr} : {request.headers['User-Agent']}"
+            f"LOGIN FAILED : {request.remote_addr} : {request.headers['User-Agent']}"
         )
         return error("Wrong credentials!"), 400
 
@@ -191,8 +191,8 @@ def start_server():
     except (KeyboardInterrupt, EOFError):
         from sys import exit
 
-        exit(logging.critical("KeyboardInterrupt"))
         print(col.Fore.RED + "[*] Goodbye !" + col.Fore.RESET)
+        exit(logging.critical("KeyboardInterrupt"))
     except Exception as e:
         logging.error(str(e))
 

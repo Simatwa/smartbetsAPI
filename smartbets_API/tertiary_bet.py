@@ -1,6 +1,7 @@
 # win,draw,loss evaluater
 from .bet_common import getInt, tScore, logging
 
+
 # Getting performance generally
 def GG(results):
     g = gg = ov15 = ov25 = ov35 = df = 0

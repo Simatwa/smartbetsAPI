@@ -20,6 +20,8 @@ developer = "Smartwa"
 root_image = os.getcwd() + "static/image/"
 logo = root_image + "logo.jpg"
 predbets_img = root_image + "predbets.png"
+
+
 # Runs system cmds at API level
 def get_output(command):
     success = False
@@ -302,6 +304,8 @@ class booter:
 
 
 booter().get_info()
+
+
 # Logging configurations
 def log_level():
     tg = int(config["level"])

@@ -42,6 +42,8 @@ def createDir():
 
 
 dbnm, root = createDir()
+
+
 # Ensures script run with enough permissions
 def confirm_sudo():
     try:
@@ -54,6 +56,8 @@ def confirm_sudo():
 
 
 confirm_sudo()
+
+
 # Handles db
 class database:
     def __init__(self):
