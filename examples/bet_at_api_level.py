@@ -47,7 +47,7 @@ class predictor:
     # Main method
     def get_predictions(self, home: str, away: str, net=True):
         data = {"home": home, "away": away, "net": net}
-        resp = self.requester(url=self.url, param=data)
+        resp = self.requester(url=path.join(self.url,'predict'), param=data)
         if resp["succeed"] and resp["status_code"] == 200:
             prediction_response = (True, loads(resp["feedback"]))
         else:

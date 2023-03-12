@@ -112,17 +112,17 @@ def error(msg: str, comment=None):
 
 
 def bad_request() -> tuple:
-    info = "Kindly pass team names {home:str,away:str,net:bool}"
-    help = """
-	//<input name="home" type="text"/> 
-	//<input name="away" type="text"/>
-	//<input name="net" type="text"/>
-	"""
+    info = "Kindly pass team names"
+    help = "Params {User:username, paswd:paswword, net:(true/false)}"
     return error(info, help), 400
 
+#Home route
+@app.route("/")
+def home():
+    return error("Dormant subdomain","Subdomains available [login,predict]"),404
 
-# Route to the server
-@app.route("/", methods=["GET", "POST"])
+# Route to the predictor
+@app.route("/predict", methods=["GET", "POST"])
 def responser():
     if (
         request.cookies.get("id")
@@ -136,7 +136,7 @@ def responser():
             if h_team and a_team:
                 return hunter(h_team, a_team, str(net))
             else:
-                logging.error(f"Get method unknown : {request.remote_addr}")
+                logging.error(f"Incomplete request : {request.remote_addr}")
                 return bad_request()
         else:
             try:
@@ -154,22 +154,25 @@ def responser():
 
 
 # Initial login
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
     try:
-        user = request.form["user"]
-        paswd = request.form["paswd"]
+        if request.method in ("POST"):
+            user = request.form["user"]
+            paswd = request.form["paswd"]
+        else:
+            user = request.args.get("user")
+            paswd = request.args.get("paswd")
     except:
         return (
             error(
                 "Error in your request",
-                '//<input name="user" type="text"/> '
-                '//<innput name="paswd" type="password"/>',
+                "Params {User:username, paswd:paswword, net:(true/false)}",
             ),
             400,
         )
     if user == args.username and paswd == args.password:
-        resp = make_response("<h1>Success<h1>")
+        resp = make_response(jsonify({"message": "login succeeded"}))
         resp.set_cookie("id", cookie_value())
         logging.debug(
             f"LOGIN Successful: {request.remote_addr} : {request.headers['User-Agent']}"
