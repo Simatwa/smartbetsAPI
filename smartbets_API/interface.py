@@ -62,12 +62,18 @@ def parse_handler():
 args = parse_handler()
 # Ensures configurations are set before importing other modules
 set_config(args).main()
+import logging
 from flask import *
 from .predictor import predictor
 from .bet_common import logging, col
 from random import sample
+from hashlib import sha256
 
-cookie_jar, ip_address = {}, []
+cookie_jar, dat = {}, []
+
+for x in range(65, 126, 1):
+    dat.append(chr(x))
+
 app = Flask(__name__)
 
 
@@ -78,16 +84,12 @@ def internal_error(e):
 
 # Generates cookie value
 def cookie_value():
-    dat = []
-    addr = request.remote_addr
-    for x in range(65, 126, 1):
-        dat.append(chr(x))
-    rp = "".join(sample(dat, 30))
-    cookie_jar[addr] = rp
-    ip_address.append(addr)
-    logging.debug(f"Assigning cookie_value [{rp}] : {request.remote_addr}")
+    genVals = lambda amt: "".join(sample(dat, amt))
+    id, value = (genVals(7), sha256(genVals(14).encode()).hexdigest())
+    cookie_jar[id] = value
+    logging.debug(f"Assigning cookie - id [{id}] : {request.remote_addr}")
     logging.debug(f"Total logins [{len(cookie_jar)}]")
-    return rp
+    return id, value
 
 
 # Interacts with the predictor
@@ -116,19 +118,25 @@ def bad_request() -> tuple:
     help = "Params {User:username, paswd:paswword, net:(true/false)}"
     return error(info, help), 400
 
-#Home route
+
+# Home route
 @app.route("/")
 def home():
-    return error("Dormant subdomain","Subdomains available [login,predict]"),404
+    return error("Dormant path", "Paths available [/login,/predict]"), 404
+
 
 # Route to the predictor
 @app.route("/predict", methods=["GET", "POST"])
 def responser():
-    if (
-        request.cookies.get("id")
-        and request.remote_addr in ip_address
-        and cookie_jar[request.remote_addr] == request.cookies.get("id")
-    ):
+    verified = False
+    try:
+        id = request.cookies.get("id")
+        value = request.cookies.get("value")
+        if all([id, value]) and cookie_jar[id] == value:
+            verified = True
+    except KeyError:
+        return error("Kindly login!"), 401
+    if verified:
         if request.method == "GET":
             h_team = request.args.get("home")
             a_team = request.args.get("away")
@@ -173,7 +181,9 @@ def login():
         )
     if user == args.username and paswd == args.password:
         resp = make_response(jsonify({"message": "login succeeded"}))
-        resp.set_cookie("id", cookie_value())
+        id, value = cookie_value()
+        resp.set_cookie("id", id)
+        resp.set_cookie("value", value)
         logging.debug(
             f"LOGIN Successful: {request.remote_addr} : {request.headers['User-Agent']}"
         )
