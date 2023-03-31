@@ -110,6 +110,8 @@ class web:
     def get_proxy(self,code:int=429) -> dict:
         """Hunts down proxies"""
         proxy = None
+        if not config.get('proxy'):
+            return proxy
         if code == 429 or code == 403:
             pr = self.hunter.sample(self.proxies)
             if pr[0]:

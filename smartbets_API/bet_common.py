@@ -6,6 +6,7 @@ import logging as log
 import colorama as col
 import threading as thr
 import colorama as col
+from appdirs import AppDirs
 
 version = 1.1
 config = {}
@@ -20,6 +21,8 @@ developer = "Smartwa"
 root_image = os.getcwd() + "static/image/"
 logo = root_image + "logo.jpg"
 predbets_img = root_image + "predbets.png"
+dirs = AppDirs("Smartwa", "smartbets_API").user_data_dir
+config_filepath=os.path.join(dirs,'configurations.json')
 
 
 # Runs system cmds at API level
@@ -292,19 +295,17 @@ def run(cmd):
 # Updates configurations parsed
 class booter:
     def __init__(self):
-        self.target = ["log", "color", "filename", "gui", "level"]
+        self.target = ["log", "color", "filename", "gui", "level", "proxy"]
 
     def get_info(self):
-        info = queryDb(f'SELECT {",".join(self.target)} FROM Booter WHERE ID=1')[0]
-        for x in range(len(self.target)):
-            if str(info[x]).lower() in ("false", "0", "none"):
-                config[self.target[x]] = False
-            else:
-                config[self.target[x]] = info[x]
-
+        from json import load
+        try:
+            with open(config_filepath) as fh:
+                config.update(load(fh))
+        except Exception as e:
+            exit('Failed to load configurations - '+config_filepath+' '+str(e))
 
 booter().get_info()
-
 
 # Logging configurations
 def log_level():

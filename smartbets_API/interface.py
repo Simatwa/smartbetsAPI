@@ -35,9 +35,14 @@ def parse_handler():
         metavar="0-50",
     )
     parser.add_argument(
+        "--enable-proxy",
+        dest='proxy',
+        action='store_true',
+        help="Access internet via rotating proxies",
+    )
+    parser.add_argument(
         "--no-net",
         action="store_true",
-        dest="no_net",
         help="Force the API to use cached data rather than from internet.",
     )
     parser.add_argument("--host", help="Host the API on net [LAN]", action="store_true")
@@ -199,7 +204,7 @@ def start_server():
     try:
         if args.host:
             app.run(host="0.0.0.0", port=args.port, debug=args.debug, threaded=True)
-        else:
+        else: 
             app.run(port=args.port, debug=args.debug)
     except (KeyboardInterrupt, EOFError):
         from sys import exit

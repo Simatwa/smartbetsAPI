@@ -3,6 +3,9 @@ import sqlite3
 import subprocess
 from sys import exit, prefix
 import colorama as col
+from appdirs import AppDirs
+from json import dumps
+dirs = AppDirs("Smartwa", "smartbets_API").user_data_dir
 
 
 def get_output(command):
@@ -19,10 +22,7 @@ def get_output(command):
 
 
 def createDir():
-    from appdirs import AppDirs
-
-    dirs = AppDirs("Smartwa", "smartbets_API")
-    root = dirs.user_data_dir + "/"
+    root = dirs + "/"
     try:
         if not os.path.isdir(root):
             os.makedirs(root)
@@ -127,25 +127,20 @@ class database:
 
 class set_config:
     def __init__(self, args):
-        self.args = args
-        self.target = ["log", "color", "filename", "gui", "level"]
-        self.db = database()
+        self.target = ["log", "color", "filename", "gui", "level", "proxy"]
+        self.values = [args.log, args.color, args.filename, args.gui, args.level, args.proxy]
+        self.config_filepath=os.path.join(dirs,'configurations.json')
 
     # Creates db initially
     def createTable(self):
         self.db.queryDb("DROP TABLE Booter")
         run = f"""CREATE TABLE IF NOT EXISTS Booter(ID INTEGER PRIMARY 
-		KEY AUTOINCREMENT, log TEXT, Color TEXT, Filename TEXT, Gui TEXT, Level INTEGER)"""
+		KEY AUTOINCREMENT, log TEXT, Color TEXT, Filename TEXT, Gui TEXT, Level INTEGER, Proxy TEXT)"""
         self.db.queryDb(run)
 
     def main(self):
-        self.createTable()
-        log = self.args.log if self.args.log else False
-        color = self.args.color if self.args.color else False
-        filename = self.args.filename if self.args.filename else False
-        gui = self.args.gui if self.args.gui else False
-        level = self.args.level
-        self.db.queryDb(
-            f"""INSERT INTO Booter(log,color,filename,gui,level)
-		VALUES('{log}','{color}','{filename}','{gui}','{level}')"""
-        )
+        try:
+            with open(self.config_filepath,'w') as fh:
+                fh.write(dumps(dict(zip(self.target,self.values))))
+        except Exception as e:
+            exit(print(f'[*] Failed to save configurations - {self.config_filepath} - {e}'))
