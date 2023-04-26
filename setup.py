@@ -11,7 +11,6 @@ setup(
     name="smartbetsAPI",
     packages=["smartbets_API"],
     version=__version__,
-    install_requires=get_file("requirements.txt"),
     url="https://github.com/Simatwa/smartbetsAPI",
     license="GPL-3.0",
     author=__author__,
@@ -21,6 +20,14 @@ setup(
     description="Simple football prediction API",
     long_description="\n".join(get_file("README.md")),
     long_description_content_type="text/markdown",
+    install_requires=[
+        "Flask>=2.2.2",
+        "appdirs==1.4.4",
+        "requests>=2.28.1",
+        "colorama>=0.4.6",
+        "bs4==0.0.1",
+        "Faker>=15.3.4",
+    ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",

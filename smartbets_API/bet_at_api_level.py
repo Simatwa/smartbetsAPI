@@ -6,6 +6,13 @@ from os import path
 
 class predictor:
     def __init__(self, api_url: str, password: str, username="API"):
+        """Connect to the REST API
+
+        Args:
+            api_url (str): Link to API
+            password (str): API's password
+            username (str, optional): API's username. Defaults to "API".
+        """
         self.url = api_url
         self.username = username
         self.password = password
@@ -45,7 +52,7 @@ class predictor:
             return resp
 
     # Main method
-    def get_predictions(self, home: str, away: str, net=True):
+    def get_predictions(self, home: str, away: str, net=True) -> list:
         """Get predictions for matches 
 
         Args:
@@ -54,7 +61,7 @@ class predictor:
             net (bool, optional): Fetch data from internet. Defaults to True.
 
         Returns:
-            _type_: _description_
+            list: list containing success report (bool) and predictions (dict)
         """
         data = {"home": home, "away": away, "net": net}
         resp = self.__requester(url=path.join(self.url,'predict'), param=data)
