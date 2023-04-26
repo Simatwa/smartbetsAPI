@@ -28,6 +28,7 @@ setup(
         "bs4==0.0.1",
         "Faker>=15.3.4",
     ],
+    scripts=['postinstall.sh'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",

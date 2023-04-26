@@ -21,14 +21,14 @@
 - Installing through pip is always the most preferred way:
 
  ```sh
- $ pip  install smartbetsAPI
+ pip  install smartbetsAPI
  
  ```
 
  - For those who like enjoying the **latest** releases from [Github](https://github.com) like [me](https://github.com/Simatwa), rather than  waiting for the next release:
 
  ```sh
- $ pip install git+https://github.com/Simatwa/smartbetsAPI.git
+ pip install git+https://github.com/Simatwa/smartbetsAPI.git
 
  ```
 
@@ -36,15 +36,15 @@
 
  ```sh
 
- $ git clone https://github.com/Simatwa/smartbetsAPI.git
+ git clone https://github.com/Simatwa/smartbetsAPI.git
 
- $ cd smartbetsAPI
+ cd smartbetsAPI
 
- $ bash install.sh 
+ bash install.sh 
 
    #or
 
-$ sudo bash install.sh
+sudo bash install.sh
 
 ```
 
@@ -87,6 +87,17 @@ Here is an example of a [simple program](examples/bet_at_api_level.py) that make
 > **Note** 
   - Content-Type of the response (predictions) is `application/json`
   - Reinstall with `sudo` privileges if `smartbetsAPI` command can't be found.
+
+> Example predicting using REST API
+
+```py
+from smartbets_API import predictor
+predict = predictor('http://localhost:8080','password')
+bets=predict.get_predictions('Arsenal','Manchester')
+print(bets)
+#Output
+#(True, {'choice': 55.56, 'g': 14.0, 'gg': 80.0, 'ov15': 80.0, 'ov25': 65.0, 'ov35': 55.0, 'pick': 'ov15', 'result': '1'})
+```
 
 
 * For more information you can run `smartbetsAPI -h` 
