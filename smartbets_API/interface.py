@@ -120,7 +120,7 @@ def error(msg: str, comment=None):
 
 def bad_request() -> tuple:
     info = "Kindly pass team names"
-    help = "Params {User:username, paswd:paswword, net:(true/false)}"
+    help = "Params {home:home-team, away:away-team, net:(true/false)}"
     return error(info, help), 400
 
 
