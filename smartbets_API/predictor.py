@@ -6,6 +6,7 @@ class args_handler:
         self.filename = v("filename")
         self.gui = v("gui")
         self.level = v("level")
+        self.proxy=v("proxy")
 
 
 class predictor:
@@ -18,6 +19,7 @@ class predictor:
         color=False,
         gui=False,
         api=False,
+        proxy =None,
     ):
         """Initializes the class.
 
@@ -45,6 +47,7 @@ class predictor:
                 "filename": filename,
                 "gui": gui,
                 "level": level,
+                "proxy":proxy
             }
             set_config(args_handler(**args)).main()
         from .bet_common import logging
