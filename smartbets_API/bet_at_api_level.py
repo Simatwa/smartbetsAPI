@@ -1,4 +1,3 @@
-from requests import Session
 from json import loads
 from sys import exit
 from os import path
@@ -13,6 +12,7 @@ class predictor:
             password (str): API's password
             username (str, optional): API's username. Defaults to "API".
         """
+        from requests import Session
         self.url = api_url
         self.username = username
         self.password = password
