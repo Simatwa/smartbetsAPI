@@ -27,6 +27,7 @@ setup(
         "colorama==0.4.6",
         "bs4==0.0.1",
         "Faker==15.3.4",
+        "Werkzeug==2.2.2",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
