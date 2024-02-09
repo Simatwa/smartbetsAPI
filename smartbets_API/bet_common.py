@@ -229,7 +229,7 @@ def nameFinder(html, sp=""):
 
 # Generating google search link
 def google(search):
-    key = re.sub("\s", "+", search)
+    key = re.sub(f"\s", "+", search)
     stat = f"""https://www.google.com/search?q={key}"""
     return stat
 
@@ -255,7 +255,7 @@ def opener(link, fmt="html"):
 
 
 def getInt(score):
-    score = re.sub("\s", "", score)
+    score = re.sub(f"\s", "", score)
     after = []
     score = score.split("-")
     for dat in score:
