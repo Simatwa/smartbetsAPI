@@ -9,7 +9,7 @@
  ## Features
  - REST-API
  - Script intergration (package)
- - Non-AI 
+ - Non-ML
 
  ## Installation and usage
 
