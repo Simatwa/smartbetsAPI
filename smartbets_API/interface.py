@@ -103,7 +103,11 @@ v1_auth_scheme = OAuth2PasswordBearer(
 
 
 class Match(BaseModel):
-    """Football match teams and net flag"""
+    """Football match teams and net flag
+    - `home` : Home team (1)
+    - `away` : Away team (2)
+    - `net` : Use latest data from internet
+    """
 
     home: str
     away: str
@@ -111,7 +115,16 @@ class Match(BaseModel):
 
 
 class Prediction(BaseModel):
-    """Match prediction"""
+    """Match prediction
+    - `g` :	Goal-average of the two teams
+    - `gg` : Probability of both teams to score
+    - `ov15` : Probability of having more than 2 goals
+    - `ov25` : Probability of having more than 3 goals
+    - `ov35` : Probability of having more than 4 goals
+    - `choice` : Probability of the specified 'result' to occur
+    - `result` : The most suitable outcome from [1,1x,x,2x,2]
+    - `pick` : The most suitable outcome from [1,1x,x,2x,2,gg,ov15,ov25,ov35]
+    """
 
     g: float
     gg: float
@@ -124,6 +137,11 @@ class Prediction(BaseModel):
 
 
 class ServerStatus(BaseModel):
+    """Checks server's running status
+    - `is_alive` : Is server running?
+    - `as_at` : Datetime when status was generated.
+    """
+
     is_alive: bool = True
     as_at: datetime = datetime.utcnow()
 
