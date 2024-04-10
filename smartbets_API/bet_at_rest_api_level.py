@@ -1,4 +1,3 @@
-from requests import Session
 from json import loads
 from sys import exit
 from os import path
@@ -6,6 +5,7 @@ from os import path
 
 class predictor:
     def __init__(self, api_url: str, token: str):
+        from requests import Session
         self.url = api_url
         self.session = Session()
         self.session.headers = {
