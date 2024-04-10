@@ -148,7 +148,7 @@ def home():
 
 @app.get("/status")
 def server_status() -> ServerStatus:
-    """Check server status"""
+    """Check server running status"""
     return ServerStatus(as_at=datetime.utcnow())
 
 
