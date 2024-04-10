@@ -21,8 +21,7 @@ setup(
     long_description="\n".join(get_file("README.md")),
     long_description_content_type="text/markdown",
     install_requires=[
-        "fastapi==0.110.1",
-        "uvicorn==0.29.0",
+        "fastapi[all]==0.110.1",
         "appdirs==1.4.4",
         "requests==2.31.0",
         "colorama==0.4.6",
