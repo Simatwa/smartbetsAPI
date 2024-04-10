@@ -74,6 +74,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from typing import Annotated
+from datetime import datetime
 
 app = FastAPI(
     title="smartbetsAPI",
@@ -122,6 +123,11 @@ class Prediction(BaseModel):
     pick: str
 
 
+class ServerStatus(BaseModel):
+    is_alive: bool = True
+    as_at: datetime = datetime.utcnow()
+
+
 def verify_token(token: Annotated[str, Depends(v1_auth_scheme)]):
     """Ensures token passed match the one set"""
     if token and token == args.token:
@@ -138,6 +144,12 @@ def verify_token(token: Annotated[str, Depends(v1_auth_scheme)]):
 def home():
     """Redirect to api playground"""
     return RedirectResponse("/v1/docs")
+
+
+@app.get("/status")
+def server_status() -> ServerStatus:
+    """Check server status"""
+    return ServerStatus(as_at=datetime.utcnow())
 
 
 @v1_router.post("/token")

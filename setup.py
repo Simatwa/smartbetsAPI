@@ -28,7 +28,7 @@ setup(
         "bs4==0.0.1",
         "Faker==15.3.4",
     ],
-    python_requires =">=3.9",
+    python_requires=">=3.9",
     project_urls={
         "Bug Report": "https://github.com/Simatwa/smartbetsAPI/issues/new",
         "Homepage": "https://github.com/Simatwa/smartbetsAPI",
