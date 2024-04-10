@@ -7,6 +7,7 @@ from appdirs import AppDirs
 dirs = AppDirs("Smartwa", "smartbets_API")
 program_info = "Simple football prediction API  "
 epilog = "[*] This program is disseminated under GPL-3.0 license."
+log_level_choices = ["debug", "info", "warning", "error", "critical"]
 
 
 def parse_handler():
@@ -29,15 +30,14 @@ def parse_handler():
         "-l",
         "--level",
         help="Logging level",
-        choices=[0, 10, 20, 30, 40, 50],
-        type=int,
-        default=20,
-        metavar="0-50",
+        choices=log_level_choices,
+        default="info",
+        metavar="|".join(log_level_choices),
     )
     parser.add_argument(
         "--enable-proxy",
-        dest='proxy',
-        action='store_true',
+        dest="proxy",
+        action="store_true",
         help="Access internet via rotating proxies",
     )
     parser.add_argument(
@@ -60,160 +60,120 @@ def parse_handler():
     parser.add_argument(
         "--gui", help="Use gui notifications [Termux]", action="store_true"
     )
-    parser.add_argument("password", help="Passphrase for login authentication")
+    parser.add_argument("token", help="Passphrase for login authentication")
     return parser.parse_args()
 
 
 args = parse_handler()
 # Ensures configurations are set before importing other modules
 set_config(args).main()
-import logging
-from flask import *
+
 from .predictor import predictor
-from .bet_common import logging, col
-from random import sample
-from hashlib import sha256
+from fastapi import FastAPI, status, HTTPException, Depends, APIRouter
+from fastapi.responses import RedirectResponse
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from pydantic import BaseModel
+from typing import Annotated
 
-cookie_jar, dat = {}, []
+app = FastAPI(
+    title="smartbetsAPI",
+    summary="Worldwide soccer-matches predictor",
+    version=__version__,
+    description="""View official docs at [Simatwa/smartbets](https://github.com/Simatwa/smartbetsapi)""",
+    license_info={
+        "name": "GNUv3",
+        "url": "https://github.com/Simatwa/smartbetsAPI/blob/main/LICENSE?raw=true",
+    },
+    contact={
+        "name": "Smartwa",
+        "url": "https://github.com/Simatwa",
+        "email": "simatwacaleb@proton.me",
+    },
+    docs_url="/v1/docs",
+    redoc_url="/v1/redoc",
+    # openapi_prefix="/v1",
+)
 
-for x in range(65, 126, 1):
-    dat.append(chr(x))
+v1_router = APIRouter(prefix="/v1", tags=["v1"])
 
-app = Flask(__name__)
-
-
-@app.errorhandler(500)
-def internal_error(e):
-    return str(e), 500
-
-
-# Generates cookie value
-def cookie_value():
-    genVals = lambda amt: "".join(sample(dat, amt))
-    id, value = (genVals(7), sha256(genVals(14).encode()).hexdigest())
-    cookie_jar[id] = value
-    logging.debug(f"Assigning cookie - id [{id}] : {request.remote_addr}")
-    logging.debug(f"Total logins [{len(cookie_jar)}]")
-    return id, value
-
-
-# Interacts with the predictor
-def hunter(h: str, a: str, net: bool) -> dict:
-    logging.debug(f"BET : {request.remote_addr} : {h}-{a}")
-    return jsonify(predictor(api=True).predictorD({1: h, 2: a}, verifyNet(net)))
+v1_auth_scheme = OAuth2PasswordBearer(
+    tokenUrl="/v1/token", description="Token set at server launch."
+)
 
 
-# Converts net-arg parsed to bool (data-type)
-def verifyNet(arg):
-    arg = str(arg).lower()
-    if arg in ("false", "0", "none"):
-        return False
+class Match(BaseModel):
+    """Football match teams and net flag"""
+
+    home: str
+    away: str
+    net: bool = False
+
+
+class Prediction(BaseModel):
+    """Match prediction"""
+
+    g: float
+    gg: float
+    ov15: float
+    ov25: float
+    ov35: float
+    choice: float
+    result: str
+    pick: str
+
+
+def verify_token(token: Annotated[str, Depends(v1_auth_scheme)]):
+    """Ensures token passed match the one set"""
+    if token and token == args.token:
+        return token
     else:
-        return True
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 
-# Handles request error
-def error(msg: str, comment=None):
-    logging.debug(f"INVALID {request.remote_addr} : {msg}")
-    return jsonify({"message": msg, "comment": comment})
-
-
-def bad_request() -> tuple:
-    info = "Kindly pass team names"
-    help = "Params {home:home-team, away:away-team, net:(true/false)}"
-    return error(info, help), 400
-
-
-# Home route
-@app.route("/")
+@app.get("/")
 def home():
-    return error("Dormant path", "Paths available [/login,/predict]"), 404
+    """Redirect to api playground"""
+    return RedirectResponse("/v1/docs")
 
 
-# Route to the predictor
-@app.route("/predict", methods=["GET", "POST"])
-def responser():
-    verified = False
-    try:
-        id = request.cookies.get("id")
-        value = request.cookies.get("value")
-        if all([id, value]) and cookie_jar[id] == value:
-            verified = True
-    except KeyError:
-        return error("Kindly login!"), 401
-    if verified:
-        if request.method == "GET":
-            h_team = request.args.get("home")
-            a_team = request.args.get("away")
-            net = False if args.no_net else request.args.get("net")
-            if h_team and a_team:
-                return hunter(h_team, a_team, str(net))
-            else:
-                logging.error(f"Incomplete request : {request.remote_addr}")
-                return bad_request()
-        else:
-            try:
-                h_team = request.form["home"]
-                a_team = request.form["away"]
-                if "net" in list(request.form.keys()):
-                    net = False if args.no_net else str(request.form["net"])
-            except Exception as e:
-                logging.error(f"POST method - {e} - [{request.remote_addr}]")
-                return bad_request()
-            else:
-                return hunter(h_team, a_team, net)
+@v1_router.post("/token")
+def fetch_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+    """Fetch api token"""
+    if form_data.username == args.username and form_data.password == args.token:
+        return {
+            "access_token": args.token,
+            "token_type": "bearer",
+        }
     else:
-        return error("Kindly login!"), 401
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+        )
 
 
-# Initial login
-@app.route("/login", methods=["POST", "GET"])
-def login():
-    try:
-        if request.method in ("POST"):
-            user = request.form["user"]
-            paswd = request.form["paswd"]
-        else:
-            user = request.args.get("user")
-            paswd = request.args.get("paswd")
-    except:
-        return (
-            error(
-                "Error in your request",
-                "Params {User:username, paswd:paswword, net:(true/false)}",
-            ),
-            400,
-        )
-    if user == args.username and paswd == args.password:
-        resp = make_response(jsonify({"message": "login succeeded"}))
-        id, value = cookie_value()
-        resp.set_cookie("id", id)
-        resp.set_cookie("value", value)
-        logging.debug(
-            f"LOGIN Successful: {request.remote_addr} : {request.headers['User-Agent']}"
-        )
-        return resp
-    else:
-        logging.debug(
-            f"LOGIN FAILED : {request.remote_addr} : {request.headers['User-Agent']}"
-        )
-        return error("Wrong credentials!"), 400
+@v1_router.post("/predict", dependencies=[Depends(verify_token)])
+def predict(match: Match) -> Prediction:
+    """Make prediction"""
+    return predictor(api=True).predictorD({1: match.home, 2: match.away}, match.net)
+
+
+app.include_router(v1_router)
 
 
 def start_server():
+    import uvicorn
+
     try:
-        if args.host:
-            app.run(host="0.0.0.0", port=args.port, debug=args.debug, threaded=True)
-        else: 
-            app.run(port=args.port, debug=args.debug)
+        uvicorn.run(
+            app,
+            host="0.0.0.0" if args.host else "127.0.0.1",
+            port=args.port,
+            reload=args.debug,
+            log_level=args.level,
+        )
     except (KeyboardInterrupt, EOFError):
-        from sys import exit
-
-        print(col.Fore.RED + "[*] Goodbye !" + col.Fore.RESET)
-        exit(logging.critical("KeyboardInterrupt"))
-    except Exception as e:
-        logging.error(str(e))
-
-
-if __name__ == "__main__":
-    start_server()
+        pass

@@ -5,6 +5,7 @@ from sys import exit, prefix
 import colorama as col
 from appdirs import AppDirs
 from json import dumps
+
 dirs = AppDirs("Smartwa", "smartbets_API").user_data_dir
 
 
@@ -128,8 +129,22 @@ class database:
 class set_config:
     def __init__(self, args):
         self.target = ["log", "color", "filename", "gui", "level", "proxy"]
-        self.values = [args.log, args.color, args.filename, args.gui, args.level, args.proxy]
-        self.config_filepath=os.path.join(dirs,'configurations.json')
+        log_level = {
+            "debug": 10,
+            "info": 20,
+            "warning": 30,
+            "error": 40,
+            "critical": 50,
+        }
+        self.values = [
+            args.log,
+            args.color,
+            args.filename,
+            args.gui,
+            log_level[args.level],
+            args.proxy,
+        ]
+        self.config_filepath = os.path.join(dirs, "configurations.json")
 
     # Creates db initially
     def createTable(self):
@@ -140,7 +155,11 @@ class set_config:
 
     def main(self):
         try:
-            with open(self.config_filepath,'w') as fh:
-                fh.write(dumps(dict(zip(self.target,self.values))))
+            with open(self.config_filepath, "w") as fh:
+                fh.write(dumps(dict(zip(self.target, self.values))))
         except Exception as e:
-            exit(print(f'[*] Failed to save configurations - {self.config_filepath} - {e}'))
+            exit(
+                print(
+                    f"[*] Failed to save configurations - {self.config_filepath} - {e}"
+                )
+            )

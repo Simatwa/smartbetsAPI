@@ -9,12 +9,12 @@ class web:
     def __init__(self):
         self.used, self.exc, self.user_agent, self.ref = [], [], [], []
         self.hunter = hunter45(req)
-        pr = self.hunter.get_proxy() 
+        pr = self.hunter.get_proxy()
         if pr[0]:
             self.proxies = pr[1]
         else:
             logging.error(pr[1])
-            self.proxies = [] 
+            self.proxies = []
 
     def sampl(self):
         etc = [
@@ -106,24 +106,24 @@ class web:
             "Sec-Fetch-Dest": "document",
         }
         return content
-    
-    def get_proxy(self,code:int=429) -> dict:
+
+    def get_proxy(self, code: int = 429) -> dict:
         """Hunts down proxies"""
         proxy = None
-        if not config.get('proxy'):
+        if not config.get("proxy"):
             return proxy
         if code == 429 or code == 403:
             pr = self.hunter.sample(self.proxies)
             if pr[0]:
                 proxy = pr[1]
-                logging.info('Loading new proxy - '+proxy['https'])
-                logging.debug(f'Proxy assigned - {proxy}')
+                logging.info("Loading new proxy - " + proxy["https"])
+                logging.debug(f"Proxy assigned - {proxy}")
             else:
                 logging.error(pr[1])
         return proxy
 
     # Getting html from web
-    def sender(self, link, info="Requesting", g=0, head=0,proxy=None):
+    def sender(self, link, info="Requesting", g=0, head=0, proxy=None):
         ht = "http"
         if ht in link:
             url = link
@@ -131,18 +131,18 @@ class web:
             url = "https://" + link
         try:
             logging.info(f"{info} - {url}")
-            params= {'url':url, 'headers':self.header(),'timeout':15}
+            params = {"url": url, "headers": self.header(), "timeout": 15}
             if proxy:
-                params['proxies']=proxy
+                params["proxies"] = proxy
             resp = req.get(**params)
         except TimeoutError:
-            return (self.sender,info,g,head,self.get_proxy())
+            return (self.sender, info, g, head, self.get_proxy())
         except Exception as e:
             if len(self.exc) > 1:
                 return "0"
             logging.error(str(e))
             self.exc.append("1")
-            return self.sender(url, "Retrying",proxy=self.get_proxy())
+            return self.sender(url, "Retrying", proxy=self.get_proxy())
         else:
             self.ref.insert(0, url)
             self.status(resp.status_code, resp.reason)
@@ -159,13 +159,13 @@ class web:
                     gui.toast(f"Http-code {code}", b="red", c="lime")
                     logging.debug(f"{g}s of SLEEP")
                     time.sleep(g)
-                    return self.sender(self.repair(url), "Retrying", g, 1,proxy)
+                    return self.sender(self.repair(url), "Retrying", g, 1, proxy)
                 if "access denied" in soupHtml(content).lower():
                     logging.warning("ACCESS DENIED".center(37))
                     self.user_agent.clear()
                     logging.warning(f"{g}s of SLEEP")
                     time.sleep(g)
-                    return self.sender(self.repair(url), "Retrying", g, 1,proxy)
+                    return self.sender(self.repair(url), "Retrying", g, 1, proxy)
                 nm = filter(link, "html")
                 queryDb(f"DELETE FROM html where F_name='{nm}' ")
                 insertDb("Html", "F_name", "File", nm, content)

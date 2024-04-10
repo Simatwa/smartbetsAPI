@@ -1,38 +1,22 @@
 from requests import Session
 from json import loads
-from sys import exit
 from os import path
 
 
 class predictor:
-    def __init__(self, api_url: str, password: str, username="API"):
+    def __init__(self, api_url: str, token: str):
         self.url = api_url
-        self.username = username
-        self.password = password
         self.session = Session()
-        # Verifies the login credentials
-        __login_trial = self.__api_login()
-        if not __login_trial["status_code"] == 200:
-            exit(__login_trial["feedback"])
-
-    # Tries to login
-    def __api_login(self):
-        data = {"user": self.username, "paswd": self.password}
-        login_trial = self.__requester(
-            url=path.join(self.url, "login"), param=data, method="post"
-        )
-        return login_trial
+        self.session.headers = {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token}",
+        }
 
     # Interacts with the api
-    def __requester(self, url, param=False, method="get"):
-        query_parameters = {"url": url}
-        if param:
-            query_parameters["params" if method == "get" else "data"] = param
+    def __requester(self, **kwargs):
         try:
-            if method.lower() == "post":
-                response = self.session.post(**query_parameters)
-            else:
-                response = self.session.get(**query_parameters)
+            response = self.session.post(**kwargs)
         except Exception as e:
             resp = {"succeed": False, "feedback": e, "status_code": 0}
         else:
@@ -46,10 +30,10 @@ class predictor:
 
     # Main method
     def get_predictions(self, home: str, away: str, net=True):
-        """Get predictions for matches 
+        """Get predictions for matches
 
         Args:
-            home (str): Home team 
+            home (str): Home team
             away (str): Away team
             net (bool, optional): Fetch data from internet. Defaults to True.
 
@@ -57,15 +41,15 @@ class predictor:
             _type_: _description_
         """
         data = {"home": home, "away": away, "net": net}
-        resp = self.__requester(url=path.join(self.url,'predict'), param=data)
+        resp = self.__requester(url=path.join(self.url, "predict"), json=data)
         if resp["succeed"] and resp["status_code"] == 200:
             prediction_response = (True, loads(resp["feedback"]))
         else:
             prediction_response = (False, resp["feedback"])
         return prediction_response
 
-    def __call__(self,*args,**kwargs):
-        return self.get_predictions(*args,**kwargs)
+    def __call__(self, *args, **kwargs):
+        return self.get_predictions(*args, **kwargs)
 
 
 if __name__ == "__main__":
@@ -76,8 +60,8 @@ if __name__ == "__main__":
         ["PSG", "Monaco"],
     )
     run = predictor(
-        api_url="http://localhost:8000",
-        password="mypass9876",
+        api_url="http://localhost:8000/v1",
+        token="12345",
     )
     for match in matches:
         predictions = run.get_predictions(home=match[0], away=match[1], net=False)

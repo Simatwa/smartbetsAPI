@@ -1,9 +1,9 @@
-__version__ = "1.1.6"
+__version__ = "1.2.0"
 __author__ = "Smartwa Caleb"
 from .bet_at_api_level import predictor as rest_api
 from .predictor import predictor
 
-__all__=[
-    'predictor',
-    'rest_api',
+__all__ = [
+    "predictor",
+    "rest_api",
 ]

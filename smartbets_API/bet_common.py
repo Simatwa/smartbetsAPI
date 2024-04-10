@@ -22,7 +22,7 @@ root_image = os.getcwd() + "static/image/"
 logo = root_image + "logo.jpg"
 predbets_img = root_image + "predbets.png"
 dirs = AppDirs("Smartwa", "smartbets_API").user_data_dir
-config_filepath=os.path.join(dirs,'configurations.json')
+config_filepath = os.path.join(dirs, "configurations.json")
 
 
 # Runs system cmds at API level
@@ -299,13 +299,16 @@ class booter:
 
     def get_info(self):
         from json import load
+
         try:
             with open(config_filepath) as fh:
                 config.update(load(fh))
         except Exception as e:
-            exit('Failed to load configurations - '+config_filepath+' '+str(e))
+            exit("Failed to load configurations - " + config_filepath + " " + str(e))
+
 
 booter().get_info()
+
 
 # Logging configurations
 def log_level():

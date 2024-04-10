@@ -1,23 +1,22 @@
 <h1 align="center">smartbetsAPI</h1>
 <p align="center">
- <a href="https://github.com/Simatwa/smartbetsAPI"><img alt="Github" src="https://img.shields.io/static/v1?logo=github&color=blueviolet&label=Test&message=Passing"/></a> <a href="LICENSE"><img alt="License" src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPL-v3&label=License"/></a> <a href="https://pypi.org/project/smartbetsAPI"><img alt="PyPi" src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.1.6&color=green"/></a> <a href="https://github.com/psf/black"><img alt="Black" src="https://img.shields.io/static/v1?logo=Black&label=Code-style&message=Black"/></a> <a href="#"><img alt="Accuracy" src="https://img.shields.io/static/v1?logo=accuracy&label=Accuracy&message=55%&color=critical"/></a> <a href="#"><img alt="Passing" src="https://img.shields.io/static/v1?logo=Docs&label=Docs&message=Passing&color=green"/></a> <a href="#"><img alt="coverage" src="https://img.shields.io/static/v1?logo=Coverage&label=Coverage&message=100%&color=yellowgreen"/></a>  <a href="#" alt="progress"><img alt="Progress" src="https://img.shields.io/static/v1?logo=Progress&label=Progress&message=95%&color=green"/></a>  <a href="https://pepy.tech/project/smartbetsapi"><img src="https://static.pepy.tech/personalized-badge/smartbetsapi?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads" alt="Downloads"></a></p><br>
+ <a href="https://github.com/Simatwa/smartbetsAPI"><img alt="Github" src="https://img.shields.io/static/v1?logo=github&color=blueviolet&label=Test&message=Passing"/></a> <a href="LICENSE"><img alt="License" src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPL-v3&label=License"/></a> <a href="https://pypi.org/project/smartbetsAPI"><img alt="PyPi" src="https://img.shields.io/static/v1?logo=pypi&label=Pypi&message=v1.2.0&color=green"/></a> <a href="https://github.com/psf/black"><img alt="Black" src="https://img.shields.io/static/v1?logo=Black&label=Code-style&message=Black"/></a> <a href="#"><img alt="Accuracy" src="https://img.shields.io/static/v1?logo=accuracy&label=Accuracy&message=55%&color=yellow"/></a> <a href="#"><img alt="Passing" src="https://img.shields.io/static/v1?logo=Docs&label=Docs&message=Passing&color=green"/></a> <a href="#"><img alt="coverage" src="https://img.shields.io/static/v1?logo=Coverage&label=Coverage&message=100%&color=yellowgreen"/></a>  <a href="#" alt="progress"><img alt="Progress" src="https://img.shields.io/static/v1?logo=Progress&label=Progress&message=95%&color=green"/></a>  <a href="https://pepy.tech/project/smartbetsapi"><img src="https://static.pepy.tech/personalized-badge/smartbetsapi?period=total&units=international_system&left_color=grey&left_text=Downloads" alt="Downloads"></a></p><br>
  
  > "Punter's choice" 
 
- Worldwide soccer-matches predictor with a  dedicated standalone [Flask](https://github.com/pallets/Flask) server as an endpoint and a package for intergrating the scripts in your own [Python](https://python.org) code.
+ Worldwide soccer-matches predictor with Fast-API and a package for integrating the scripts in your own [Python](https://python.org) code.
 
  ## Features
+
  - REST-API
- - Script intergration (package)
+ - Script integration (package)
  - Non-ML
 
  ## Installation and usage
 
  ### Installation
 
-1. Linux 
-
-*Python 3.7+* is required for this script to be fruitful to you. 
+*Python 3.9+* is required for this script to be fruitful to you. 
 - Installing through pip is always the most preferred way:
 
  ```sh
@@ -52,7 +51,7 @@ sudo bash install.sh
 
 1. Terminal
 
- Running `$ smartbetsAPI <api-password>`  will fire up the [Flask](/pallets/Flask) server with the following default configurations.
+ Running `$ smartbetsAPI <token/password>`  will fire up the FastAPI server with the following default configurations.
 
 <table align="center"> 
 <thead>
@@ -74,19 +73,21 @@ sudo bash install.sh
 
 - For instance :
 
- ```sh
+```sh
  $ smartbetsAPI mypass9876
 
-``` 
+```
 
-Here is an example of a [simple program](examples/bet_at_api_level.py) that makes prediction using the `api`.
+> [!TIP]
+> `Docs` will be available at : http://localhost:8000/v1/docs
+> `Redoc` will be available at : http://localhost:8000/v1/redoc
+
+Here is an example of a [simple program](examples/bet_at_rest_api_level.py) that makes prediction using the REST API.
 
 ![api running](assets/api_running.gif)
 
-
-> **Note** 
-  - Content-Type of the response (predictions) is `application/json`
-  - Reinstall with `sudo` privileges if `smartbetsAPI` command can't be found.
+> [!Note]
+> Reinstall with `sudo` privileges if `smartbetsAPI` command can't be found.
 
 > Example predicting using REST API
 
