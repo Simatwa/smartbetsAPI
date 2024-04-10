@@ -23,7 +23,7 @@ setup(
     install_requires=[
         "fastapi[all]==0.110.1",
         "appdirs==1.4.4",
-        "requests==2.31.0",
+        "requests[socks]==2.31.0",
         "colorama==0.4.6",
         "bs4==0.0.1",
         "Faker==15.3.4",

@@ -80,7 +80,7 @@ app = FastAPI(
     title="smartbetsAPI",
     summary="Worldwide soccer-matches predictor",
     version=__version__,
-    description="""View official docs at [Simatwa/smartbets](https://github.com/Simatwa/smartbetsapi)""",
+    description="""Visit official repo at [Simatwa/smartbets](https://github.com/Simatwa/smartbetsapi)""",
     license_info={
         "name": "GNUv3",
         "url": "https://github.com/Simatwa/smartbetsAPI/blob/main/LICENSE?raw=true",
@@ -122,8 +122,8 @@ class Prediction(BaseModel):
     - `ov25` : Probability of having more than 3 goals
     - `ov35` : Probability of having more than 4 goals
     - `choice` : Probability of the specified 'result' to occur
-    - `result` : The most suitable outcome from [1,1x,x,2x,2]
-    - `pick` : The most suitable outcome from [1,1x,x,2x,2,gg,ov15,ov25,ov35]
+    - `result` : The most suitable outcome from **[1,1x,x,2x,2]**
+    - `pick` : The most suitable outcome from **[1,1x,x,2x,2,gg,ov15,ov25,ov35]**
     """
 
     g: float
