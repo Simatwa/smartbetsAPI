@@ -89,10 +89,7 @@ app = FastAPI(
         "name": "Smartwa",
         "url": "https://github.com/Simatwa",
         "email": "simatwacaleb@proton.me",
-    },
-    docs_url="/v1/docs",
-    redoc_url="/v1/redoc",
-    # openapi_prefix="/v1",
+    }
 )
 
 v1_router = APIRouter(prefix="/v1", tags=["v1"])
@@ -113,6 +110,17 @@ class Match(BaseModel):
     away: str
     net: bool = False
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "home": "Arsenal",
+                    "away": "Manchester United",
+                    "net": False
+                }
+            ]
+        }
+    }
 
 class Prediction(BaseModel):
     """Match prediction
@@ -135,6 +143,22 @@ class Prediction(BaseModel):
     result: str
     pick: str
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "g": 10,
+                    "gg": 70,
+                    "ov15": 75,
+                    "ov25": 40,
+                    "ov35": 25,
+                    "choice": 55.56,
+                    "result": "1",
+                    "pick": "ov15"
+                }
+            ]
+        }
+    }
 
 class ServerStatus(BaseModel):
     """Checks server's running status
@@ -144,6 +168,14 @@ class ServerStatus(BaseModel):
 
     is_alive: bool = True
     as_at: datetime = datetime.utcnow()
+
+class TokenAuth(BaseModel):
+    """
+    - `access_token` : Token value.
+    - `token_type` : bearer
+    """
+    access_token:str
+    token_type:str
 
 
 def verify_token(token: Annotated[str, Depends(v1_auth_scheme)]):
@@ -171,13 +203,11 @@ def server_status() -> ServerStatus:
 
 
 @v1_router.post("/token")
-def fetch_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
-    """Fetch api token"""
+def fetch_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> TokenAuth:
+    """Fetch api token
+    """
     if form_data.username == args.username and form_data.password == args.token:
-        return {
-            "access_token": args.token,
-            "token_type": "bearer",
-        }
+        return TokenAuth(**{"access_token": args.token,"token_type": "bearer",})
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
