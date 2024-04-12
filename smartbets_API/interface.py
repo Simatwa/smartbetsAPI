@@ -193,7 +193,7 @@ def verify_token(token: Annotated[str, Depends(v1_auth_scheme)]):
 @app.get("/")
 def home():
     """Redirect to api playground"""
-    return RedirectResponse("/v1/docs")
+    return RedirectResponse("/docs")
 
 
 @app.get("/status")
