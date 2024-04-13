@@ -235,6 +235,12 @@ Consider donating to this project if you find it useful:
 <a href="https://www.paypal.com/donate/?hosted_button_id=KLNYKSGUXY8R2"><img src="https://img.shields.io/static/v1?logo=paypal&message=Donate&color=blueviolet&label=Paypal"/></a>
 </p>
 
+### API Health Status
+
+| No. | API | Status |
+|--------|-----|--------|
+| 1. | [On-render](https://python-tgpt.onrender.com)  | [cron-job](https://lfx48519.status.cron-job.org) |
+
 ## Credits
 
 - [x] [Soccerway](https://int.soccerway.com)
