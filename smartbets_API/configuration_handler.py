@@ -141,7 +141,7 @@ class set_config:
             args.color,
             args.filename,
             args.gui,
-            log_level[args.level],
+            log_level[args.level] if isinstance(args.level, str) else args.level,
             args.proxy,
         ]
         self.config_filepath = os.path.join(dirs, "configurations.json")
