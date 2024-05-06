@@ -30,7 +30,7 @@ setup(
     extras_require={
         'api' : ["fastapi[all]==0.110.1",]
     },
-    python_requires=">=3.10",
+    python_requires=">=3.9",
     project_urls={
         "Bug Report": "https://github.com/Simatwa/smartbetsAPI/issues/new",
         "Homepage": "https://github.com/Simatwa/smartbetsAPI",
