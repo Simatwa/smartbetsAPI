@@ -21,13 +21,15 @@ setup(
     long_description="\n".join(get_file("README.md")),
     long_description_content_type="text/markdown",
     install_requires=[
-        "fastapi[all]==0.110.1",
         "appdirs==1.4.4",
         "requests[socks]==2.31.0",
         "colorama==0.4.6",
         "bs4==0.0.1",
         "Faker==15.3.4",
     ],
+    extras_require={
+        'api' : ["fastapi[all]==0.110.1",]
+    },
     python_requires=">=3.9",
     project_urls={
         "Bug Report": "https://github.com/Simatwa/smartbetsAPI/issues/new",
