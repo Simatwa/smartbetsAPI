@@ -29,7 +29,9 @@ setup(
         "pyfreeproxies==0.1.1",
     ],
     extras_require={
-        'api' : ["fastapi[all]==0.110.1",]
+        "api": [
+            "fastapi[all]==0.110.1",
+        ]
     },
     python_requires=">=3.9",
     project_urls={
