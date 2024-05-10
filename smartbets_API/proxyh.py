@@ -46,9 +46,8 @@ class hunter45:
 
 
 if __name__ == "__main__":
-    import requests as req
 
-    run = hunter45(req)
+    run = hunter45()
     all_proxies = run.get_proxy()[1]
     for x in all_proxies:
         print(run.sample(all_proxies))
