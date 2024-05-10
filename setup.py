@@ -26,6 +26,7 @@ setup(
         "colorama==0.4.6",
         "bs4==0.0.1",
         "Faker==15.3.4",
+        "pyfreeproxies==0.1.1",
     ],
     extras_require={
         'api' : ["fastapi[all]==0.110.1",]

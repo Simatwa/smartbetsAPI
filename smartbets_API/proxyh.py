@@ -1,25 +1,17 @@
 # Hunts down open proxies from github
 from random import choice
+from pyfreeproxies import UpdateAwareFreeProxies
 
 
 class hunter45:
-    def __init__(self, requests: object):
-        self.links = {
-            "socks5": "https://github.com/TheSpeedX/PROXY-List/raw/master/socks5.txt",
-            "socks4": "https://github.com/TheSpeedX/PROXY-List/raw/master/socks4.txt",
-            "https": "https://github.com/TheSpeedX/PROXY-List/raw/master/http.txt",
-        }
-        self.requests = requests
-        self.type = "socks5"
+    def __init__(self):
         self.picked = []
+        self.freeProxies = UpdateAwareFreeProxies()
 
-    def get_proxy(self, type: str = "socks5") -> list:
+    def get_proxy(self) -> list:
         """fetches proxy"""
         try:
-            self.type = type
-            rp = self.requests.get(self.links[type])
-            if rp.status_code == 200:
-                return (True, rp.text.split("\n"))
+            return (True, self.freeProxies.get_confirmed_working_proxies())
         except Exception as e:
             return (False, e.args[1] if len(e.args) > 1 else e)
 
@@ -34,7 +26,7 @@ class hunter45:
                     current_proxies.remove(pk)
                 except:
                     pass
-                return self.type + "://" + pk
+                return pk
 
             pk = pick()
             return (

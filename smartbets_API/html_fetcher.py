@@ -8,7 +8,7 @@ from .proxyh import hunter45
 class web:
     def __init__(self):
         self.used, self.exc, self.user_agent, self.ref = [], [], [], []
-        self.hunter = hunter45(req)
+        self.hunter = hunter45()
         pr = self.hunter.get_proxy()
         if pr[0]:
             self.proxies = pr[1]
