@@ -222,7 +222,7 @@ class predictor:
 
     # Clear global variable's data
     def clearHolders(self):
-        self.A.clear
+        self.A.clear()
         self.B.clear()
         self.aA.clear()
         self.bB.clear()
