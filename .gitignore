@@ -6,3 +6,5 @@
 *assets
 *.comments
 #*comments
+test.py
+test-*.py

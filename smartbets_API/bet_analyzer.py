@@ -1,7 +1,5 @@
 from .bet_common import logging, getInt, tScore
 from .tertiary_bet import tertiary
-import os
-import re
 
 
 class analyze:
