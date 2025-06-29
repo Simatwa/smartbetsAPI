@@ -6,6 +6,13 @@
 
  Worldwide soccer-matches predictor with Fast-API and a package for integrating the scripts in your own [Python](https://python.org) code.
 
+> [!IMPORTANT]
+ > This package, despite being refactored several times, does not fully adhere to the [PEP-8](https://peps.python.org/pep-0008/) or any other standard style guide for Python. It was my first contribution to PyPI and the Python ecosystem at large. As a beginner, **getting the work done was my priority**, which I undoubtedly achieved. Otherwise, thank you to the over 20,000 programmers for trusting my poorly written code that exceeds your expectations.
+
+ > [!WARNING]
+ > Expect 3-lettered variable names without obvious meanings, some logs with little sense, dubious logic, poor naming conventions, less meaningful comments, and much more than one might expect from a novice coder.
+.
+
  ## Features
 
  - REST-API
